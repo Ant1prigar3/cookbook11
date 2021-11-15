@@ -120,7 +120,7 @@ class Window(QMainWindow):
         self.ing = self.ui.inghred4.text()
         self.recip = self.ui.rec4.text()
         try:
-            sqlite_connection = sqlite3.connect(f"{os.getcwd()}/recipe1.sqlite")
+            sqlite_connection = sqlite3.connect(f"{os.getcwd()}/recipe.sqlite")
             cursor = sqlite_connection.cursor()
             sqlite_insert_query = f"""INSERT INTO allthere
                     (name,type,recs,ingrediens) 
@@ -168,7 +168,7 @@ class Window(QMainWindow):
             self.ui.viewRecipe.setText('Вот какие рецепты мы сумели найти для вас:')
             self.ui.viewRecipe.setStyleSheet("""font: bold 30px""")
             self.res = []
-            con = sqlite3.connect(f"{os.getcwd()}/recipe1.sqlite")
+            con = sqlite3.connect(f"{os.getcwd()}/recipe.sqlite")
             cur = con.cursor()
             for i in self.dct['type']:
                 x = cur.execute(f"""select * from allthere where type = {i}""").fetchall()
@@ -199,7 +199,7 @@ class Window(QMainWindow):
                 self.ui.viewRecipe.setStyleSheet("""font: bold 20px""")
 
     def rnd_recipe(self):
-        con = sqlite3.connect(f"{os.getcwd()}/recipe1.sqlite")
+        con = sqlite3.connect(f"{os.getcwd()}/recipe.sqlite")
         cur = con.cursor()
         try:
             result = cur.execute(
@@ -240,7 +240,7 @@ class Window(QMainWindow):
         self.item = self.ui.listWidget.currentRow()
         self.itemmm = self.ui.listWidget.item(self.item)
         if self.itemmm is not None:
-            con = sqlite3.connect(f"{os.getcwd()}/recipe1.sqlite")
+            con = sqlite3.connect(f"{os.getcwd()}/recipe.sqlite")
             cur = con.cursor()
             x = cur.execute(f'''select * from allthere
                                             where name = "{self.itemmm.text().split(' (')[0]}"''').fetchone()
@@ -275,7 +275,7 @@ class Window(QMainWindow):
             self.ui.viewRecipe.setStyleSheet("""font: bold 20px""")
 
     def openWindow2(self):
-        con = sqlite3.connect(f"{os.getcwd()}/recipe1.sqlite")
+        con = sqlite3.connect(f"{os.getcwd()}/recipe.sqlite")
         cur = con.cursor()
         self.txt = self.ui.viewRecipe3.text().split('\n')[0]
         x = cur.execute(f'''select * from allthere
